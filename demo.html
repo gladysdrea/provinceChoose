@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    </head>
+<!--  引入 jQuery -->
+  <script src="https://probe.bjmantis.net/chat/jquery-1.12.4.min.js"></script>
+<!--  引入城市数据 -->
+    <script type="application/javascript" src="provinceData.js"></script>
+    <body>
+      <div class="list">
+        <select name="" id="selProvince">
+          <option value="">----请选择----</option>
+        </select>
+        <select name="" id="selCity">
+          <option value="">----请选择----</option>
+        </select>
+        <select name="" id="selCountry">
+          <option value="">----请选择----</option>
+        </select>
+      </div>
+      <script>
+        $(function () {
+          var provinceList = provinceData
+          var iNum1
+          var iNum2
+          console.log(provinceList)
+          // 城市及联
+          for (var i = 0; i < provinceList.length; i++) {
+            $('#selProvince').append('<option>' + provinceList[i].name + '</option>')
+          }
+          $('#selProvince').change(function () {
+            $('#selCity').children().not(':eq(0)').remove()
+            iNum1 = $(this).children('option:selected').index()
+            var aaCity = provinceList[iNum1 - 1].children
+            for (var j = 0; j < aaCity.length; j++) {
+              $('#selCity').append('<option>' + aaCity[j].name + '</option>')
+            }
+          })
+          $('#selCity').change(function () {
+            $('#selCountry').children().not(':eq(0)').remove()
+            iNum2 = $(this).children('option:selected').index()
+            var aaCountry = provinceList[iNum1 - 1].children[iNum2 - 1].children
+            for (var k = 0; k < aaCountry.length; k++) {
+              $('#selCountry').append('<option>' + aaCountry[k].name + '</option>')
+            }
+          })
+
+        })
+      </script>
+    </body>
+</html>
